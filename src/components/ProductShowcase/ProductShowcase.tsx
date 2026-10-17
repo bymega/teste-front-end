@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { Product } from '../../types/product';
 import { getProducts } from '../../services/products';
+import { formatPrice } from '../../utils/formatPrice';
 import { ProductCarousel } from '../ProductCarousel/ProductCarousel';
 import { ProductDialog } from '../ProductDialog/ProductDialog';
 import './ProductShowcase.scss';
@@ -22,6 +23,7 @@ const categories = [
 export function ProductShowcase() {
   const [productsState, setProductsState] = useState<ProductsState>({ status: 'loading' });
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectionNotice, setSelectionNotice] = useState<string | null>(null);
   const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
@@ -37,6 +39,19 @@ export function ProductShowcase() {
 
     return () => controller.abort();
   }, [reloadKey]);
+
+  function handleOpenProduct(product: Product) {
+    setSelectionNotice(null);
+    setSelectedProduct(product);
+  }
+
+  function handleSelectQuantity(product: Product, quantity: number) {
+    const total = formatPrice(product.price * quantity);
+
+    setSelectionNotice(
+      `Seleção de demonstração: ${quantity} ${quantity === 1 ? 'unidade' : 'unidades'} de ${product.productName} (${total}). Nenhuma compra foi realizada.`,
+    );
+  }
 
   return (
     <section className="product-showcase" id="produtos" aria-labelledby="produtos-titulo">
@@ -71,14 +86,24 @@ export function ProductShowcase() {
 
       {productsState.status === 'success' && (
         productsState.products.length > 0 ? (
-          <ProductCarousel products={productsState.products} onSelect={setSelectedProduct} />
+          <ProductCarousel products={productsState.products} onSelect={handleOpenProduct} />
         ) : (
           <p className="product-showcase__status">Nenhum produto encontrado.</p>
         )
       )}
 
+      {selectionNotice && (
+        <p className="product-showcase__selection-notice" role="status">
+          {selectionNotice}
+        </p>
+      )}
+
       {selectedProduct && (
-        <ProductDialog product={selectedProduct} onClose={() => setSelectedProduct(null)} />
+        <ProductDialog
+          product={selectedProduct}
+          onClose={() => setSelectedProduct(null)}
+          onSelectQuantity={handleSelectQuantity}
+        />
       )}
     </section>
   );

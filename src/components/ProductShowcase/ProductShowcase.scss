@@ -104,3 +104,15 @@
     &__categories li { min-width: 145px; font-size: 13px; }
   }
 }
+
+.product-showcase__selection-notice {
+  width: min(calc(100% - 32px), 900px);
+  margin: 22px auto 0;
+  padding: 14px 18px;
+  border-left: 4px solid $primary;
+  background: #f7f7fb;
+  color: $dark;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.6;
+}
