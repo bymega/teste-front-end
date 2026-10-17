@@ -71,6 +71,7 @@ export async function getProducts(signal?: AbortSignal): Promise<Product[]> {
 
       throw new Error(
         'Não foi possível carregar os produtos. Tente novamente em instantes.',
+        { cause: fallbackError },
       );
     }
   }
