@@ -35,10 +35,10 @@
   }
 
   &__icon {
-    color: $purple;
-    font-size: 54px;
-    font-weight: 600;
-    line-height: 1;
+    display: block;
+    width: 61px;
+    height: 61px;
+    object-fit: contain;
   }
 
   &__label {

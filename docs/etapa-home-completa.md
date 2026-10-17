@@ -16,7 +16,7 @@
 
 ## Limitações conhecidas
 
-O Figma original tem uma Home de 1440 × 4660 px. O plano Starter do Figma bloqueia novas consultas e a exportação dos assets. Por isso, as imagens reais de parceiros, os logotipos e os ícones continuam pendentes: os fundos promocionais são **gradientes provisórios**, não imagens do layout. A página ainda exige comparação pixel a pixel após exportar os assets.
+O Figma original tem uma Home de 1440 × 4660 px. O plano Starter do Figma bloqueia novas consultas e a exportação dos assets. Por isso, as imagens reais de parceiros e os logotipos continuam pendentes: os fundos promocionais são **gradientes provisórios**, não imagens do layout. Os sete ícones das categorias e seis ícones do cabeçalho foram adicionados usando SVGs cujos identificadores dos nós correspondem ao Figma; os créditos e a licença desses recursos estão em `docs/creditos-assets.md`. A página ainda exige comparação pixel a pixel após exportar os assets.
 
 A lista fornecida pela Econverse contém 10 produtos, sem categorias. Os produtos das três vitrines são os mesmos, apresentados em ordens diferentes; não existe filtro ou inventário separado. As marcas exibidas na seção de círculos são ilustrações visuais da marca Econverse, conforme os itens visíveis na referência consultada anteriormente.
 
