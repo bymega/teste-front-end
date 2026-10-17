@@ -1,0 +1,66 @@
+@use '../../styles/tokens' as *;
+
+.footer {
+  background: #f7f7f7;
+  padding: 42px 20px 28px;
+  color: $dark;
+
+  &__inner {
+    max-width: $container-width;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 90px;
+    margin: 0 auto;
+  }
+
+  &__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: $purple;
+    font-size: 25px;
+    letter-spacing: -1.1px;
+    text-decoration: none;
+  }
+
+  &__logo-mark {
+    width: 25px;
+    height: 25px;
+    border: 7px solid $accent;
+    border-right-color: transparent;
+    border-radius: 50%;
+    transform: rotate(-25deg);
+  }
+
+  &__identity p {
+    max-width: 240px;
+    margin: 15px 0 0;
+    color: $muted;
+    font-size: 12px;
+  }
+
+  &__links {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 30px;
+  }
+
+  &__links h2 {
+    margin: 0 0 24px;
+    color: $dark;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  &__links ul { display: grid; gap: 16px; margin: 0; padding: 0; list-style: none; }
+  &__links li { color: $dark; font-size: 12px; }
+
+  @media (max-width: 800px) {
+    &__inner { grid-template-columns: 1fr; gap: 35px; }
+  }
+
+  @media (max-width: 520px) {
+    &__links { grid-template-columns: 1fr 1fr; gap: 30px 16px; }
+    &__links h2 { margin-bottom: 16px; }
+  }
+}

@@ -6,9 +6,15 @@ interface ProductCardProps {
   product: Product;
   index: number;
   onSelect: (product: Product) => void;
+  prioritizeImage?: boolean;
 }
 
-export function ProductCard({ product, index, onSelect }: ProductCardProps) {
+export function ProductCard({
+  product,
+  index,
+  onSelect,
+  prioritizeImage = false,
+}: ProductCardProps) {
   return (
     <article className="product-card">
       <button
@@ -22,7 +28,7 @@ export function ProductCard({ product, index, onSelect }: ProductCardProps) {
           alt={product.productName}
           width="278"
           height="228"
-          loading={index < 4 ? 'eager' : 'lazy'}
+          loading={prioritizeImage && index < 4 ? 'eager' : 'lazy'}
           decoding="async"
         />
       </button>
