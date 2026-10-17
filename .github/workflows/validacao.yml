@@ -1,0 +1,32 @@
+name: Validação do frontend
+
+on:
+  pull_request:
+    branches: [develop, main]
+  push:
+    branches:
+      - develop
+      - 'feature/**'
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Obter repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Analisar qualidade do código
+        run: npm run lint
+
+      - name: Compilar aplicação
+        run: npm run build
