@@ -1,6 +1,7 @@
 import { Header } from './components/Header/Header';
 import { Hero } from './components/Hero/Hero';
 import { Categories } from './components/Categories/Categories';
+import { ProductShowcase } from './components/ProductShowcase/ProductShowcase';
 
 export default function App() {
   return (
@@ -9,6 +10,7 @@ export default function App() {
       <main id="conteudo-principal">
         <Hero />
         <Categories />
+        <ProductShowcase />
       </main>
     </>
   );
