@@ -1,15 +1,7 @@
-import { useEffect, useState } from 'react';
 import type { Product } from '../../types/product';
-import { getProducts } from '../../services/products';
-import { formatPrice } from '../../utils/formatPrice';
+import type { ProductsState } from '../../hooks/useProducts';
 import { ProductCarousel } from '../ProductCarousel/ProductCarousel';
-import { ProductDialog } from '../ProductDialog/ProductDialog';
 import './ProductShowcase.scss';
-
-type ProductsState =
-  | { status: 'loading' }
-  | { status: 'success'; products: Product[] }
-  | { status: 'error'; message: string };
 
 const categories = [
   'celular',
@@ -20,53 +12,48 @@ const categories = [
   'Ver todos',
 ] as const;
 
-export function ProductShowcase() {
-  const [productsState, setProductsState] = useState<ProductsState>({ status: 'loading' });
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [selectionNotice, setSelectionNotice] = useState<string | null>(null);
-  const [reloadKey, setReloadKey] = useState(0);
+interface ProductShowcaseProps {
+  id: string;
+  title?: string;
+  productsState: ProductsState;
+  offset?: number;
+  showCategories?: boolean;
+  onSelect: (product: Product) => void;
+  onRetry: () => void;
+}
 
-  useEffect(() => {
-    const controller = new AbortController();
-
-    getProducts(controller.signal)
-      .then((products) => setProductsState({ status: 'success', products }))
-      .catch((error: unknown) => {
-        if (controller.signal.aborted) return;
-        const message = error instanceof Error ? error.message : 'Ocorreu um erro inesperado.';
-        setProductsState({ status: 'error', message });
-      });
-
-    return () => controller.abort();
-  }, [reloadKey]);
-
-  function handleOpenProduct(product: Product) {
-    setSelectionNotice(null);
-    setSelectedProduct(product);
-  }
-
-  function handleSelectQuantity(product: Product, quantity: number) {
-    const total = formatPrice(product.price * quantity);
-
-    setSelectionNotice(
-      `Seleção de demonstração: ${quantity} ${quantity === 1 ? 'unidade' : 'unidades'} de ${product.productName} (${total}). Nenhuma compra foi realizada.`,
-    );
-  }
+export function ProductShowcase({
+  id,
+  title = 'Produtos relacionados',
+  productsState,
+  offset = 0,
+  showCategories = false,
+  onSelect,
+  onRetry,
+}: ProductShowcaseProps) {
+  const products = productsState.status === 'success' ? productsState.products : [];
+  const start = products.length ? offset % products.length : 0;
+  const displayedProducts = [...products.slice(start), ...products.slice(0, start)];
 
   return (
-    <section className="product-showcase" id="produtos" aria-labelledby="produtos-titulo">
+    <section className="product-showcase" id={id} aria-labelledby={`${id}-titulo`}>
       <div className="product-showcase__heading">
-        <h2 id="produtos-titulo">Produtos relacionados</h2>
-        <span>Ver todos</span>
+        <h2 id={`${id}-titulo`}>{title}</h2>
+        {!showCategories && <span>Ver todos</span>}
       </div>
 
-      <ul className="product-showcase__categories" aria-label="Categorias ilustradas na vitrine">
-        {categories.map((category, index) => (
-          <li key={category} className={index === 0 ? 'product-showcase__category--active' : undefined}>
-            {category}
-          </li>
-        ))}
-      </ul>
+      {showCategories && (
+        <ul className="product-showcase__categories" aria-label="Categorias exibidas na vitrine">
+          {categories.map((category, index) => (
+            <li
+              key={category}
+              className={index === 0 ? 'product-showcase__category--active' : undefined}
+            >
+              {category}
+            </li>
+          ))}
+        </ul>
+      )}
 
       {productsState.status === 'loading' && (
         <p className="product-showcase__status" role="status">Carregando produtos...</p>
@@ -75,35 +62,22 @@ export function ProductShowcase() {
       {productsState.status === 'error' && (
         <div className="product-showcase__status" role="alert">
           <p>{productsState.message}</p>
-          <button type="button" onClick={() => {
-            setProductsState({ status: 'loading' });
-            setReloadKey((key) => key + 1);
-          }}>
-            Tentar novamente
-          </button>
+          <button type="button" onClick={onRetry}>Tentar novamente</button>
         </div>
       )}
 
       {productsState.status === 'success' && (
-        productsState.products.length > 0 ? (
-          <ProductCarousel products={productsState.products} onSelect={handleOpenProduct} />
+        displayedProducts.length ? (
+          <ProductCarousel
+            viewportId={`${id}-lista`}
+            label={title}
+            products={displayedProducts}
+            onSelect={onSelect}
+            prioritizeImages={showCategories}
+          />
         ) : (
           <p className="product-showcase__status">Nenhum produto encontrado.</p>
         )
-      )}
-
-      {selectionNotice && (
-        <p className="product-showcase__selection-notice" role="status">
-          {selectionNotice}
-        </p>
-      )}
-
-      {selectedProduct && (
-        <ProductDialog
-          product={selectedProduct}
-          onClose={() => setSelectedProduct(null)}
-          onSelectQuantity={handleSelectQuantity}
-        />
       )}
     </section>
   );

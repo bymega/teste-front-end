@@ -15,7 +15,8 @@
     color: $muted;
     font-size: 12px;
 
-    p { margin: 0; }
+    p { margin: 0; display: inline-flex; align-items: center; gap: 6px; }
+    img { display: block; width: 20px; height: 20px; flex: 0 0 auto; }
     strong { color: $purple; font-weight: 600; }
   }
 
@@ -30,25 +31,14 @@
 
   &__logo {
     display: inline-flex;
-    gap: 6px;
     align-items: center;
-    font-size: 25px;
-    font-weight: 500;
-    letter-spacing: -1.4px;
     text-decoration: none;
-    color: $purple;
-    white-space: nowrap;
 
-    strong { font-weight: 700; }
-  }
-
-  &__logo-symbol {
-    width: 25px;
-    height: 25px;
-    border: 7px solid $accent;
-    border-right-color: transparent;
-    border-radius: 50%;
-    transform: rotate(-25deg);
+    img {
+      display: block;
+      width: min(100%, 155px);
+      height: auto;
+    }
   }
 
   &__search {
@@ -75,11 +65,12 @@
   }
 
   &__search-icon {
+    display: flex;
+    align-items: center;
     padding-inline: 0 18px;
-    color: $dark;
-    font-size: 29px;
-    line-height: 1;
     pointer-events: none;
+
+    img { display: block; width: 28px; height: 28px; }
   }
 
   &__actions {
@@ -90,6 +81,8 @@
     color: #3d3d3d;
     font-size: 29px;
     line-height: 1;
+
+    img { display: block; width: 32px; height: 32px; object-fit: contain; }
   }
 
   &__nav {
@@ -127,6 +120,7 @@
       grid-template-columns: 160px minmax(150px, 1fr) 150px;
     }
     &__actions { gap: 10px; font-size: 24px; }
+    &__actions img { width: 27px; height: 27px; }
     &__nav { overflow-x: auto; }
     &__nav ul { min-width: max-content; }
   }
@@ -147,6 +141,7 @@
 
     &__logo { font-size: 23px; }
     &__actions { gap: 8px; font-size: 21px; padding: 0; }
+    &__actions img { width: 24px; height: 24px; }
     &__search { grid-column: 1 / -1; grid-row: 2; }
     &__nav ul { padding: 0 16px; }
   }

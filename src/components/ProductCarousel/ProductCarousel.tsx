@@ -6,9 +6,18 @@ import './ProductCarousel.scss';
 interface ProductCarouselProps {
   products: Product[];
   onSelect: (product: Product) => void;
+  viewportId: string;
+  label: string;
+  prioritizeImages?: boolean;
 }
 
-export function ProductCarousel({ products, onSelect }: ProductCarouselProps) {
+export function ProductCarousel({
+  products,
+  onSelect,
+  viewportId,
+  label,
+  prioritizeImages = false,
+}: ProductCarouselProps) {
   const listRef = useRef<HTMLDivElement>(null);
 
   function scroll(direction: -1 | 1) {
@@ -31,18 +40,26 @@ export function ProductCarousel({ products, onSelect }: ProductCarouselProps) {
         className="product-carousel__arrow product-carousel__arrow--previous"
         type="button"
         onClick={() => scroll(-1)}
-        aria-label="Ver produtos anteriores"
-        aria-controls="lista-produtos"
+        aria-label={`Ver produtos anteriores em ${label}`}
+        aria-controls={viewportId}
       >
         <span aria-hidden="true">‹</span>
       </button>
 
-      <div className="product-carousel__viewport" id="lista-produtos" ref={listRef} role="region" aria-label="Lista de produtos em destaque">
+      <div
+        className="product-carousel__viewport"
+        id={viewportId}
+        ref={listRef}
+        role="region"
+        aria-label={label}
+        tabIndex={0}
+      >
         {products.map((product, index) => (
           <ProductCard
             key={`${product.productName}-${index}`}
             product={product}
             index={index}
+            prioritizeImage={prioritizeImages}
             onSelect={onSelect}
           />
         ))}
@@ -52,8 +69,8 @@ export function ProductCarousel({ products, onSelect }: ProductCarouselProps) {
         className="product-carousel__arrow product-carousel__arrow--next"
         type="button"
         onClick={() => scroll(1)}
-        aria-label="Ver próximos produtos"
-        aria-controls="lista-produtos"
+        aria-label={`Ver próximos produtos em ${label}`}
+        aria-controls={viewportId}
       >
         <span aria-hidden="true">›</span>
       </button>
