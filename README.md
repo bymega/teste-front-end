@@ -77,26 +77,3 @@ docs/               Registro de etapas e créditos de recursos
 ```
 
 O carregamento do JSON é compartilhado pelas vitrines para evitar múltiplas requisições da mesma lista. As imagens de produtos fora da primeira vitrine usam carregamento tardio. Os preços são formatados com `Intl.NumberFormat` para o padrão brasileiro.
-
-## Roteiro de testes manuais
-
-1. Conferir a página em larguras de **1440 px, 768 px e 375 px**, verificando eventuais rolagens horizontais indevidas.
-2. Utilizar as setas e o toque para navegar entre produtos de cada vitrine.
-3. Selecionar produtos diferentes e verificar nome, imagem, preço e descrição no modal.
-4. Testar os botões de quantidade e fechamento por `Esc`, `X` e clique fora.
-5. Testar o foco com `Tab` e `Shift+Tab`, o link para pular conteúdo e a opção de movimento reduzido.
-6. Pesquisar um nome existente e um termo inexistente no campo de busca; limpar a pesquisa.
-7. Validar a mensagem da newsletter demonstrativa sem presumir envio de dados.
-8. Executar `npm run lint` e `npm run build`.
-
-## Referências
-
-- [Enunciado do teste](https://github.com/EconverseAG/teste-front-end)
-- [Layout original no Figma](https://www.figma.com/design/rWnzPeoxgynuNPsJjV0VmV/Teste-Front-End-Jr)
-- [Créditos e procedência dos recursos visuais](docs/creditos-assets.md)
-
-## Envio
-
-Conforme as instruções da Econverse, o link do repositório deve ser enviado para **gustavo.cipriano@econverse.com.br** com o assunto **Teste Vaga FrontEnd**.
-
-Este projeto é uma implementação do teste técnico, não um e-commerce comercial em operação.
