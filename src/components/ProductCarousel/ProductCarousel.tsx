@@ -28,9 +28,10 @@ export function ProductCarousel({
     if (!card) return;
 
     const gap = Number.parseFloat(getComputedStyle(list).columnGap) || 0;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     list.scrollBy({
       left: direction * (card.getBoundingClientRect().width + gap),
-      behavior: 'smooth',
+      behavior: prefersReducedMotion ? 'instant' : 'smooth',
     });
   }
 
