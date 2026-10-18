@@ -37,13 +37,11 @@
     white-space: nowrap;
   }
 
-  &__mark {
-    width: 27px;
-    height: 27px;
-    border: 7px solid $accent;
-    border-right-color: transparent;
-    border-radius: 50%;
-    transform: rotate(-25deg);
+  &__badge img {
+    display: block;
+    width: 115px;
+    max-width: 70%;
+    height: auto;
   }
 
   @media (max-width: 850px) {

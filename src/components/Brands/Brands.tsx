@@ -7,8 +7,7 @@ export function Brands() {
       <div className="brands__list" aria-label="Econverse">
         {Array.from({ length: 5 }, (_, index) => (
           <div className="brands__badge" key={index} aria-hidden={index !== 0}>
-            <span className="brands__mark" aria-hidden="true" />
-            <span><strong>econ</strong>verse</span>
+            <img src="/assets/logo-econverse.svg" alt={index === 0 ? 'Econverse' : ''} width="139" height="42" loading="lazy" />
           </div>
         ))}
       </div>

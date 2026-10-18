@@ -31,25 +31,14 @@
 
   &__logo {
     display: inline-flex;
-    gap: 6px;
     align-items: center;
-    font-size: 25px;
-    font-weight: 500;
-    letter-spacing: -1.4px;
     text-decoration: none;
-    color: $purple;
-    white-space: nowrap;
 
-    strong { font-weight: 700; }
-  }
-
-  &__logo-symbol {
-    width: 25px;
-    height: 25px;
-    border: 7px solid $accent;
-    border-right-color: transparent;
-    border-radius: 50%;
-    transform: rotate(-25deg);
+    img {
+      display: block;
+      width: min(100%, 155px);
+      height: auto;
+    }
   }
 
   &__search {

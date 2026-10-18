@@ -10,8 +10,7 @@ export function Footer() {
       <div className="footer__inner">
         <div className="footer__identity">
           <a href="#conteudo-principal" className="footer__logo" aria-label="Econverse - voltar ao início">
-            <span className="footer__logo-mark" aria-hidden="true" />
-            <span><strong>econ</strong>verse</span>
+            <img src="/assets/logo-econverse.svg" alt="" width="139" height="42" loading="lazy" />
           </a>
           <p>Conectando você aos melhores produtos.</p>
         </div>

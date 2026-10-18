@@ -30,8 +30,7 @@ export function Header() {
 
       <div className="site-header__main">
         <a className="site-header__logo" href="#conteudo-principal" aria-label="Econverse - início">
-          <span className="site-header__logo-symbol" aria-hidden="true" />
-          <span><strong>econ</strong>verse</span>
+          <img src="/assets/logo-econverse.svg" alt="" width="139" height="42" />
         </a>
 
         <div className="site-header__search">

@@ -25,3 +25,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## Recursos adicionais do layout
+
+A imagem do banner Black Friday foi fornecida pelo desenvolvedor a partir do Figma (1440 × 390 px). Uma cópia visualmente idêntica, em PNG, está presente no repositório público [gabriel457/Econverse](https://github.com/gabriel457/Econverse), de onde foi recuperada para publicação nesta branch; o arquivo pode diferir em metadados/compactação do anexo original.
+
+O logotipo `public/assets/logo-econverse.svg`, correspondente ao layout do teste, também foi recuperado de [gabriel457/Econverse](https://github.com/gabriel457/Econverse) e reutilizado como recurso visual. Nenhum código React/CSS dessa implementação foi copiado.
