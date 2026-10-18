@@ -1,75 +1,79 @@
-# React + TypeScript + Vite
+# Teste Front-End — Econverse
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Implementação da página inicial e da vitrine de produtos do **teste técnico de Front-End da Econverse**, com base no [layout fornecido no Figma](https://www.figma.com/design/rWnzPeoxgynuNPsJjV0VmV/Teste-Front-End-Jr).
 
-Currently, two official plugins are available:
+A aplicação foi desenvolvida com React, TypeScript, Sass e Vite, sem bibliotecas de componentes de interface.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Requisitos
 
-## React Compiler
+- Node.js **24** e npm **11** (versões utilizadas no desenvolvimento).
+- Navegador atualizado, com suporte ao elemento `<dialog>` nativo.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Instalação e execução
 
-## Expanding the ESLint configuration
+Clone o repositório e instale as dependências:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+git clone https://github.com/bymega/teste-front-end.git
+cd teste-front-end
+npm ci
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Inicie o ambiente de desenvolvimento:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm run dev
 ```
+
+Abra o endereço indicado pelo Vite no terminal (normalmente `http://localhost:5173`).
+
+## Validação e compilação
+
+```bash
+npm run lint
+npm run build
+npm run preview
+```
+
+- `npm run lint`: verifica as regras de qualidade do código.
+- `npm run build`: executa a verificação de tipos do TypeScript e gera a versão otimizada em `dist/`.
+- `npm run preview`: permite conferir localmente os arquivos compilados.
+
+O GitHub Actions executa lint e build automaticamente nas branches de funcionalidade e em Pull Requests direcionados a `develop` ou `main`.
+
+## Funcionalidades
+
+- Página inicial responsiva com cabeçalho, banner de Black Friday, categorias, banners de parceiros, seção de marcas, newsletter ilustrativa e rodapé.
+- Três vitrines de produtos com navegação horizontal, usando componentes compartilhados.
+- Consumo do [JSON oficial da Econverse](https://app.econverse.com.br/teste-front-end/junior/tecnologia/lista-produtos/produtos.json), com validação básica dos dados e tratamento de erros.
+- Busca local por nome ou descrição, sem novas requisições à API a cada digitação.
+- Modal com informações do produto selecionado, imagem, descrição, preço, quantidade e total demonstrativo.
+- Abertura e fechamento do modal por teclado, botão ou clique fora.
+- Uso de HTML semântico, rótulos de acessibilidade, link para pular ao conteúdo e suporte a movimento reduzido.
+
+**Importante:** é uma demonstração de interface. Os botões Comprar não processam pagamentos; a newsletter não armazena nem envia informações; os itens institucionais e as categorias ilustrativas não representam rotas ou filtros reais.
+
+## Origem dos produtos
+
+Em desenvolvimento, o Vite encaminha a consulta `/api/econverse/produtos.json` ao serviço oficial para evitar bloqueios de CORS no navegador. Em produção, a aplicação tenta o endereço oficial diretamente.
+
+Se a API estiver indisponível ou bloquear a requisição, a aplicação usa a cópia de contingência versionada em `public/data/produtos.json`. Esta cópia **não é sincronizada automaticamente** com o servidor. O JSON disponibiliza nome, descrição curta, fotografia e preço: não foram fabricados categorias, parcelamento ou descontos inexistentes na origem.
+
+## Organização do código
+
+```text
+src/
+  components/       Componentes visuais e seus estilos SCSS
+  hooks/            Estado e carregamento dos produtos
+  services/         Requisições e validação do JSON
+  styles/           Tokens visuais e estilos globais
+  types/            Tipos TypeScript
+  utils/            Formatação de valores
+  App.tsx           Composição das seções e interação do modal
+public/
+  assets/           Logotipo, banners e ícones
+  data/             Cópia estática dos produtos para contingência
+docs/               Registro de etapas e créditos de recursos
+```
+
+O carregamento do JSON é compartilhado pelas vitrines para evitar múltiplas requisições da mesma lista. As imagens de produtos fora da primeira vitrine usam carregamento tardio. Os preços são formatados com `Intl.NumberFormat` para o padrão brasileiro.

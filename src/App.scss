@@ -1,0 +1,20 @@
+@use './styles/tokens' as *;
+
+.home__selection-notice {
+  position: fixed;
+  z-index: 5;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(800px, calc(100vw - 32px));
+  margin: 0;
+  padding: 13px 18px;
+  background: $white;
+  border: 1px solid #d6d9eb;
+  border-left: 4px solid $primary;
+  border-radius: 5px;
+  box-shadow: 0 5px 25px rgb(0 0 0 / 18%);
+  color: $dark;
+  font-size: 13px;
+  line-height: 1.5;
+}
