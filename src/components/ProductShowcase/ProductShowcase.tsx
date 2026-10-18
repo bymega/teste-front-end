@@ -16,6 +16,7 @@ interface ProductShowcaseProps {
   id: string;
   title?: string;
   productsState: ProductsState;
+  searchQuery?: string;
   offset?: number;
   showCategories?: boolean;
   onSelect: (product: Product) => void;
@@ -26,14 +27,24 @@ export function ProductShowcase({
   id,
   title = 'Produtos relacionados',
   productsState,
+  searchQuery = '',
   offset = 0,
   showCategories = false,
   onSelect,
   onRetry,
 }: ProductShowcaseProps) {
   const products = productsState.status === 'success' ? productsState.products : [];
-  const start = products.length ? offset % products.length : 0;
-  const displayedProducts = [...products.slice(start), ...products.slice(0, start)];
+  const normalizedQuery = searchQuery.trim().toLocaleLowerCase('pt-BR');
+  const filteredProducts = normalizedQuery
+    ? products.filter((product) =>
+        `${product.productName} ${product.descriptionShort}`.toLocaleLowerCase('pt-BR').includes(normalizedQuery),
+      )
+    : products;
+  const start = filteredProducts.length ? offset % filteredProducts.length : 0;
+  const displayedProducts = [
+    ...filteredProducts.slice(start),
+    ...filteredProducts.slice(0, start),
+  ];
 
   return (
     <section className="product-showcase" id={id} aria-labelledby={`${id}-titulo`}>
@@ -76,7 +87,9 @@ export function ProductShowcase({
             prioritizeImages={showCategories}
           />
         ) : (
-          <p className="product-showcase__status">Nenhum produto encontrado.</p>
+          <p className="product-showcase__status" role="status">
+            {normalizedQuery ? 'Nenhum produto corresponde à busca.' : 'Nenhum produto encontrado.'}
+          </p>
         )
       )}
     </section>

@@ -15,6 +15,7 @@ import './App.scss';
 
 export default function App() {
   const { productsState, retry } = useProducts();
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [selectionNotice, setSelectionNotice] = useState<string | null>(null);
 
@@ -32,15 +33,17 @@ export default function App() {
 
   return (
     <>
-      <Header />
+      <a className="skip-link" href="#conteudo-principal">Pular para o conteúdo principal</a>
+      <Header searchQuery={searchQuery} onSearchChange={setSearchQuery} />
 
-      <main id="conteudo-principal">
+      <main id="conteudo-principal" tabIndex={-1}>
         <Hero />
         <Categories />
 
         <ProductShowcase
           id="produtos"
           productsState={productsState}
+          searchQuery={searchQuery}
           onRetry={retry}
           onSelect={openProduct}
           showCategories
@@ -51,6 +54,7 @@ export default function App() {
         <ProductShowcase
           id="produtos-recomendados"
           productsState={productsState}
+          searchQuery={searchQuery}
           onRetry={retry}
           onSelect={openProduct}
           offset={4}
@@ -63,6 +67,7 @@ export default function App() {
         <ProductShowcase
           id="produtos-em-destaque"
           productsState={productsState}
+          searchQuery={searchQuery}
           onRetry={retry}
           onSelect={openProduct}
           offset={7}

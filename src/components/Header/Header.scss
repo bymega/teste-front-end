@@ -64,13 +64,20 @@
     }
   }
 
-  &__search-icon {
-    display: flex;
-    align-items: center;
-    padding-inline: 0 18px;
-    pointer-events: none;
+  &__search button {
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 100%;
+    flex: 0 0 auto;
+    padding: 0 14px;
+    border: 0;
+    border-radius: 0 10px 10px 0;
+    background: transparent;
+    cursor: pointer;
 
     img { display: block; width: 28px; height: 28px; }
+    &:focus-visible { outline: 2px solid $primary; outline-offset: -3px; }
   }
 
   &__actions {
