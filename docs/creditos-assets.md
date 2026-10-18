@@ -1,8 +1,8 @@
-# Créditos dos recursos visuais SVG
+# Créditos dos recursos visuais
 
 Os arquivos em `public/assets/categories` e `public/assets/ui` foram obtidos de [Epiled/econverse](https://github.com/Epiled/econverse), repositório público sob licença MIT. Os SVGs das categorias contêm referências de nós idênticas às do Figma do teste (por exemplo, `1:1365`, `1:1366` e `1:1352`).
 
-Somente os arquivos de imagem SVG foram reutilizados; o código React e os estilos de terceiros não foram copiados.
+Os recursos SVG e uma versão WebP da fotografia de parceiros foram reaproveitados. A imagem corresponde à mesma cena presente no PNG exportado do Figma pelo desenvolvedor, mas é uma versão pública de maior resolução com composição própria. O código React e os estilos de terceiros não foram copiados.
 
 ## Aviso de licença MIT
 
